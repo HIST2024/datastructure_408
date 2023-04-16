@@ -55,8 +55,19 @@ void question03_02(SeqList *L, Elemtype x) {
 }
 
 // 
-void question04(SeqList *L, Elemtype x) {
-  
+void question04(SeqList *L, int s, int t) {
+  int k = 0;
+  if (s >= t || L->length == 0) {
+    printf("error! question04");
+    return;
+  }
+  for (int i = 0; i < L->length; i++) {
+    if (L->data[i] >= s && L->data[i] <= t)
+      k++;
+    else
+      L->data[i - k] = L->data[i];
+  }
+  L->length -= k;
 }
 
 void main() {
@@ -64,11 +75,11 @@ void main() {
   initList(&L);
   listInsert(&L, 1, 3);
   listInsert(&L, 2, 5);
-  listInsert(&L, 3, 3);
+  listInsert(&L, 3, 7);
   listInsert(&L, 4, 9);
   listInsert(&L, 5, 11);
-  listInsert(&L, 6, 3);
-  listInsert(&L, 7, 13);
+  listInsert(&L, 6, 13);
+  listInsert(&L, 7, 17);
   printList(&L);
 
   // Elemtype e;
@@ -76,6 +87,9 @@ void main() {
   // printList(&L);
   // printf("删除的最小元素是:%d", e);
 
-  question03_01(&L, 3);
+  // question03_02(&L, 3);
+  // printList(&L);
+
+  question04(&L, 5, 11);
   printList(&L);
 }
