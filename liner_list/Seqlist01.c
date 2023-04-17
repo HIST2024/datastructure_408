@@ -46,7 +46,7 @@ void listDelete(SeqList *L, int i, Elemtype *e) {
 }
 
 //按位查找
-Elemtype getElem(SeqList L,int i) {
+Elemtype getElem(SeqList L, int i) {
   if (i < 1 || i >L.length) {
     printf("listDelete error1!");
     return -1;
@@ -79,7 +79,7 @@ void main01() {
   listInsert(&L, 2, 5);
   listInsert(&L, 3, 7);
   printList(&L);
-  
+
   Elemtype e;
   listDelete(&L, 2, &e);
   printList(&L);

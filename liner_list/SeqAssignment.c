@@ -54,8 +54,13 @@ void question03_02(SeqList *L, Elemtype x) {
   L->length = L->length - k;//顺序表L的长度递减
 }
 
-// 
+//
 void question04(SeqList *L, int s, int t) {
+  
+}
+
+// 删除[s,t]区间的内容，如果输入错误给出提示
+void question05(SeqList *L, int s, int t) {
   int k = 0;
   if (s >= t || L->length == 0) {
     printf("error! question04");
@@ -90,6 +95,6 @@ void main() {
   // question03_02(&L, 3);
   // printList(&L);
 
-  question04(&L, 5, 11);
+  question05(&L, 5, 13);
   printList(&L);
 }
