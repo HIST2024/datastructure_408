@@ -22,14 +22,40 @@ bool initList(LinkList *L) { //L是一个二级指针
 }
 
 //头插法建立单链表
-void listHeadInsert() {
-
+//逆向建立单链表
+void listHeadInsert(LinkList L) {
+  LNode *s;
+  int x;
+  L = (LinkList)malloc(sizeof(LNode));//创建头结点
+  L->next = NULL;//初始位空链表
+  scanf("%d", &x);//输入结点的值
+  while (x != 9999) {//输入9999表示结束
+    s = (LNode *)malloc(sizeof(LNode));
+    s->data = x;
+    s->next = L->next;
+    L->next = s;
+    scanf("%d", &x);
+  }
+  return L;
 }
 
 //尾插法建立单链表
-// LinkList listTailInsert(LinkList L) {
-
-// }
+//正向建立单链表
+LinkList listTailInsert(LinkList L) {
+  int x;
+  L = (LinkList)malloc(sizeof(LNode));
+  LNode *s, *r = L;
+  scanf("%d", &x);
+  while (x != 9999) {
+    s = (LNode *)malloc(sizeof(LNode));
+    s->data = x;
+    s->next = s;
+    r = s;
+    scanf("%d", &x);
+  }
+  r->next = NULL;
+  return L;
+}
 
 //按位序插入结点操作（带头结点）
 bool listInsert(LinkList L, int i, ElemType e) {
@@ -116,6 +142,7 @@ bool listDelete(LinkList L, int i, ElemType *e) {
 }
 
 //删除指定结点p，时间复杂度为O(1),偷梁换柱
+//但是如果是删除最后一个结点，该函数会报错
 bool deleteNode(LNode *p) {
   if (p == NULL)
     return false;
