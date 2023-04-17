@@ -11,7 +11,7 @@ typedef struct LNode {
   带头结点的单链表
  */
 
-//初始化一个单链表(带头结点)
+ //初始化一个单链表(带头结点)
 bool initList(LinkList *L) { //L是一个二级指针
   (*L) = (LNode *)malloc(sizeof(LNode));
   if ((*L) == NULL) {
@@ -27,9 +27,9 @@ void listHeadInsert() {
 }
 
 //尾插法建立单链表
-LinkList listTailInsert(LinkList L) {
+// LinkList listTailInsert(LinkList L) {
 
-}
+// }
 
 //按位序插入结点操作（带头结点）
 bool listInsert(LinkList L, int i, ElemType e) {
@@ -64,10 +64,12 @@ bool insertNextNode(LNode *p, ElemType e) {
   return true;
 }
 
-//在p结点之前插入元素e,时间复杂度O(1)
-bool insertPriorNode01(LNode *p, LNode *s) {
-  if (p == NULL || s == NULL)
+//在p结点之前插入元素e,时间复杂度O(1)，偷梁换柱
+bool insertPriorNode01(LNode *p, ElemType e) {
+  if (p == NULL)
     return false;
+  LNode *s = (LNode *)malloc(sizeof(LNode));
+  s->data = e;
   s->next = p->next;
   p->next = s; //s连接到p之后
   ElemType temp = p->data;//交换数据域部分
@@ -88,6 +90,7 @@ bool insertPriorNode02(LinkList L, LNode *p, ElemType e) {
   if (h == NULL)
     return false;
   insertNextNode(h, e);
+  return true;
 }
 
 //删除结点操作,（带头结点）
@@ -112,6 +115,17 @@ bool listDelete(LinkList L, int i, ElemType *e) {
   return true;
 }
 
+//删除指定结点p，时间复杂度为O(1),偷梁换柱
+bool deleteNode(LNode *p) {
+  if (p == NULL)
+    return false;
+  LNode *q = p->next; //令q指向*p的后继节点
+  p->data = p->next->data;//和后继节点交换数据域
+  p->next = q->next;//将*q结点从链中“断开”
+  free(q);//释放后继结点的存储空间
+  return true;
+}
+
 //判断单链表是否为空（带头结点）
 bool isEmpty(LinkList L) {
   if (L->next == NULL) {
@@ -133,7 +147,7 @@ void printList(LinkList L) {
   printf("\n");
 }
 
-void main() {
+int main() {
   //声明一个指向单链表的指针
   LinkList L;
   //初始化一个空链表

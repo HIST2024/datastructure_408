@@ -22,7 +22,6 @@ bool initList(LinkList *L, ElemType e) { //L是一个二级指针
   return true;
 }
 
-
 //按位序插入结点操作（不带头结点）
 bool listInsert(LinkList L, int i, ElemType e) {
   if (i < 1)
@@ -50,6 +49,18 @@ bool listInsert(LinkList L, int i, ElemType e) {
   return true;
 }
 
+//在p结点之前插入元素e,时间复杂度O(1)
+bool insertPriorNode01(LNode *p, LNode *s) {
+  if (p == NULL || s == NULL)
+    return false;
+  s->next = p->next;
+  p->next = s; //s连接到p之后
+  ElemType temp = p->data;//交换数据域部分
+  p->data = s->data;
+  s->data = temp;
+  return true;
+}
+
 //打印单链表
 void printList(LinkList L) {
   if (L == NULL)
@@ -62,11 +73,13 @@ void printList(LinkList L) {
   printf("\n");
 }
 
-void main() {
+int main() {
   LinkList L;
   initList(&L, 1);
   listInsert(L, 2, 3);
   listInsert(L, 3, 5);
   listInsert(L, 4, 7);
   printList(L);
+
+  return 0;
 }
