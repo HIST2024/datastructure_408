@@ -79,7 +79,7 @@ void question05(SeqList *L, int s, int t) {
   L->length -= k;
 }
 
-void main() {
+int main() {
   SeqList L;
   initList(&L);
   listInsert(&L, 1, 3);

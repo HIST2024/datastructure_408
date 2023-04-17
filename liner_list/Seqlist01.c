@@ -72,7 +72,7 @@ void printList(SeqList *L) {
   printf("\n");
 }
 
-void main01() {
+int main01() {
   SeqList L;
   initList(&L);
   listInsert(&L, 1, 3);

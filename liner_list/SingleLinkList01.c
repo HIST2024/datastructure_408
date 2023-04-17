@@ -23,39 +23,40 @@ bool initList(LinkList *L) { //L是一个二级指针
 
 //头插法建立单链表
 //逆向建立单链表
-void listHeadInsert(LinkList L) {
+LinkList listHeadInsert(LinkList *L) {
   LNode *s;
-  int x;
-  L = (LinkList)malloc(sizeof(LNode));//创建头结点
-  L->next = NULL;//初始位空链表
+  ElemType x;
+  (*L) = (LinkList)malloc(sizeof(LNode));//创建头结点
+  (*L)->next = NULL;//初始位空链表
   scanf("%d", &x);//输入结点的值
   while (x != 9999) {//输入9999表示结束
     s = (LNode *)malloc(sizeof(LNode));
     s->data = x;
-    s->next = L->next;
-    L->next = s;
+    s->next = (*L)->next;
+    (*L)->next = s;
     scanf("%d", &x);
   }
-  return L;
+  return *L;
 }
 
 //尾插法建立单链表
 //正向建立单链表
-LinkList listTailInsert(LinkList L) {
-  int x;
-  L = (LinkList)malloc(sizeof(LNode));
-  LNode *s, *r = L;
-  scanf("%d", &x);
-  while (x != 9999) {
-    s = (LNode *)malloc(sizeof(LNode));
-    s->data = x;
-    s->next = s;
-    r = s;
-    scanf("%d", &x);
-  }
-  r->next = NULL;
-  return L;
-}
+// LinkList listTailInsert(LinkList *L) {
+//   ElemType x;
+//   (*L) = (LinkList)malloc(sizeof(LNode));//创建头结点
+//   (*L)->next = NULL;
+//   LNode *s, *r = (*L); //r为表尾指针
+//   scanf("%d", &x); //输入结点的值
+//   while (x != 9999) { //输入9999表示结束
+//     s = (LNode *)malloc(sizeof(LNode));
+//     s->data = x;
+//     s->next = s;
+//     r = s; //r指向新的表尾结点
+//     scanf("%d", &x);
+//   }
+//   r->next = NULL; //尾结点指针置空
+//   return *L;
+// }
 
 //按位序插入结点操作（带头结点）
 bool listInsert(LinkList L, int i, ElemType e) {
@@ -178,10 +179,12 @@ int main() {
   //声明一个指向单链表的指针
   LinkList L;
   //初始化一个空链表
-  initList(&L);
-  listInsert(L, 1, 3);
-  listInsert(L, 2, 5);
-  listInsert(L, 3, 7);
+  // initList(&L);
+  // listInsert(L, 1, 3);
+  // listInsert(L, 2, 5);
+  // listInsert(L, 3, 7);
+  // listHeadInsert(&L);
+  listTailInsert(&L);
   printList(L);
   ElemType e;
   listDelete(L, 1, &e);

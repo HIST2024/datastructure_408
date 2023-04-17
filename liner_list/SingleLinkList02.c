@@ -75,10 +75,11 @@ void printList(LinkList L) {
 
 int main() {
   LinkList L;
-  initList(&L, 1);
-  listInsert(L, 2, 3);
-  listInsert(L, 3, 5);
-  listInsert(L, 4, 7);
+  // initList(&L, 1);
+  // listInsert(L, 2, 3);
+  // listInsert(L, 3, 5);
+  // listInsert(L, 4, 7);
+ 
   printList(L);
 
   return 0;
