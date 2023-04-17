@@ -2,6 +2,10 @@
 #include<stdlib.h>
 #include "./seqlist01.c"
 
+/*
+  408顺序表课后习题
+ */
+
 //删除最小元素，并返回删除的值,空出的位置由最后一个元素来填补，若顺序表为空，显示出错信息
 void question01(SeqList *L, Elemtype *e) {
   if (L->length == 0) {
