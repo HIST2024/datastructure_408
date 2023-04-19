@@ -21,42 +21,46 @@ bool initList(LinkList *L) { //L是一个二级指针
   return true;
 }
 
-//头插法建立单链表
+//头插法创建单链表
 //逆向建立单链表
-LinkList listHeadInsert(LinkList *L) {
+bool listHeadInsert(LinkList *L) {
+  (*L) = (LNode *)malloc(sizeof(LNode));//申请头结点空间，头指针指向头结点
+  (*L)->next = NULL;
+  if ((*L) == NULL)
+    return false;
   LNode *s;
-  ElemType x;
-  (*L) = (LinkList)malloc(sizeof(LNode));//创建头结点
-  (*L)->next = NULL;//初始位空链表
-  scanf("%d", &x);//输入结点的值
-  while (x != 9999) {//输入9999表示结束
+  ElemType value;
+  scanf("%d", &value);
+  while (value != 9999) {
     s = (LNode *)malloc(sizeof(LNode));
-    s->data = x;
-    s->next = (*L)->next;
-    (*L)->next = s;
-    scanf("%d", &x);
+    s->data = value;
+    s->next = (*L)->next;//s的next指向原本链表的第一个结点
+    (*L)->next = s;//头结点的next，指向新的结点
+    scanf("%d", &value);
   }
-  return *L;
+  return true;
 }
 
 //尾插法建立单链表
 //正向建立单链表
-// LinkList listTailInsert(LinkList *L) {
-//   ElemType x;
-//   (*L) = (LinkList)malloc(sizeof(LNode));//创建头结点
-//   (*L)->next = NULL;
-//   LNode *s, *r = (*L); //r为表尾指针
-//   scanf("%d", &x); //输入结点的值
-//   while (x != 9999) { //输入9999表示结束
-//     s = (LNode *)malloc(sizeof(LNode));
-//     s->data = x;
-//     s->next = s;
-//     r = s; //r指向新的表尾结点
-//     scanf("%d", &x);
-//   }
-//   r->next = NULL; //尾结点指针置空
-//   return *L;
-// }
+bool listTailInsert(LinkList *L) {
+  (*L) = (LNode *)malloc(sizeof(LNode));//申请头结点空间，头指针指向头结点
+  (*L)->next = NULL;
+  if ((*L) == NULL)
+    return false;
+  LNode *s, *r = (*L);//s用来指向申请的新结点,r是始终指向链表尾
+  ElemType value;
+  scanf("%d", &value);
+  while (value != 9999) {
+    s = (LNode *)malloc(sizeof(LNode));
+    s->data = value;
+    r->next = s;//新结点给尾结点的next指针
+    r = s;//r指向新的表尾结点
+    scanf("%d", &value);
+  }
+  r->next = NULL;//让尾结点的next为NULL
+  return true;
+}
 
 //按位序插入结点操作（带头结点）
 bool listInsert(LinkList L, int i, ElemType e) {
@@ -120,7 +124,21 @@ bool insertPriorNode02(LinkList L, LNode *p, ElemType e) {
   return true;
 }
 
-//删除结点操作,（带头结点）
+//按位置查找
+// LNode * getElemByLocation(LinkList L, int pos) {
+//   int j = 0;//记录当前指向的结点，初始结点时头结点
+//   if (pos < 1)
+//     return NULL;//查找位置不合法
+//   while (L && j < pos) {
+//     L = L->next;
+//     pos++;
+//   }
+//   if (L == NULL)
+//     return NULL;//没有第i-1个元素
+//   return L;
+// }
+
+//根据位序删除结点操作
 bool listDelete(LinkList L, int i, ElemType *e) {
   if (i < 1)
     return false;
@@ -184,10 +202,13 @@ int main() {
   // listInsert(L, 2, 5);
   // listInsert(L, 3, 7);
   // listHeadInsert(&L);
-  listTailInsert(&L);
+  // listTailInsert(&L);
+  listHeadInsert(&L);
   printList(L);
-  ElemType e;
-  listDelete(L, 1, &e);
-  printf("delete elem is:%d\n", e);
+  LNode *result = getElemByLocation(L, 3);
+  printf("查找到的结点值是：%d\n", result->data);
+  // ElemType e;
+  // listDelete(L, 1, &e);
+  // printf("delete elem is:%d\n", e);
   printList(L);
 }
