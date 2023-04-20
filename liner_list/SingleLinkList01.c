@@ -125,18 +125,18 @@ bool insertPriorNode02(LinkList L, LNode *p, ElemType e) {
 }
 
 //按位置查找
-// LNode * getElemByLocation(LinkList L, int pos) {
-//   int j = 0;//记录当前指向的结点，初始结点时头结点
-//   if (pos < 1)
-//     return NULL;//查找位置不合法
-//   while (L && j < pos) {
-//     L = L->next;
-//     pos++;
-//   }
-//   if (L == NULL)
-//     return NULL;//没有第i-1个元素
-//   return L;
-// }
+LNode * getElemByLocation(LinkList L, int pos) {
+  int j = 0;//记录当前指向的结点，初始结点时头结点
+  if (pos < 1)
+    return NULL;//查找位置不合法
+  while (L && j < pos) {
+    L = L->next;
+    j++;
+  }
+  if (L == NULL)
+    return NULL;//没有第i-1个元素
+  return L;
+}
 
 //根据位序删除结点操作
 bool listDelete(LinkList L, int i, ElemType *e) {
@@ -202,12 +202,16 @@ int main() {
   // listInsert(L, 2, 5);
   // listInsert(L, 3, 7);
   // listHeadInsert(&L);
-  // listTailInsert(&L);
-  listHeadInsert(&L);
+  listTailInsert(&L);
+  // listHeadInsert(&L);
   printList(L);
   LNode *result = getElemByLocation(L, 3);
-  printf("查找到的结点值是：%d\n", result->data);
-  // ElemType e;
+  if (result != NULL) {
+    printf("查找到的结点值是：%d\n", result->data);
+  } else {
+    printf("没有找到该值\n");
+  }
+    // ElemType e;
   // listDelete(L, 1, &e);
   // printf("delete elem is:%d\n", e);
   printList(L);
