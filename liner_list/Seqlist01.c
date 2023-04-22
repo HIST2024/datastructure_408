@@ -30,7 +30,7 @@ void listInsert(SeqList *L, int i, Elemtype e) {
   }
   L->data[i - 1] = e;
   L->length++;//顺序表长度加一
-}
+} 
 
 //删除元素
 void listDelete(SeqList *L, int i, Elemtype *e) {

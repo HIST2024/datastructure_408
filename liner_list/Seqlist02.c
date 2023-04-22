@@ -64,7 +64,7 @@ Elemtype getElem(SeqList L, int i) {
     return -1;
   }
   return L.data[i - 1];
-}
+} 
 
 //按值查找
 int locateElem(SeqList *L, Elemtype e) {
