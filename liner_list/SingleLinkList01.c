@@ -25,9 +25,9 @@ bool initList(LinkList *L) { //L是一个二级指针
 //逆向建立单链表
 bool listHeadInsert(LinkList *L) {
   (*L) = (LNode *)malloc(sizeof(LNode));//申请头结点空间，头指针指向头结点
-  (*L)->next = NULL;
   if ((*L) == NULL)
     return false;
+  (*L)->next = NULL;
   LNode *s;
   ElemType value;
   scanf("%d", &value);
@@ -44,12 +44,11 @@ bool listHeadInsert(LinkList *L) {
 //尾插法建立单链表
 //正向建立单链表
 bool listTailInsert(LinkList *L) {
+  ElemType value;
   (*L) = (LNode *)malloc(sizeof(LNode));//申请头结点空间，头指针指向头结点
-  (*L)->next = NULL;
   if ((*L) == NULL)
     return false;
   LNode *s, *r = (*L);//s用来指向申请的新结点,r是始终指向链表尾
-  ElemType value;
   scanf("%d", &value);
   while (value != 9999) {
     s = (LNode *)malloc(sizeof(LNode));
@@ -111,11 +110,11 @@ bool insertPriorNode01(LNode *p, ElemType e) {
 
 //在p结点之前插入元素e,时间复杂度O(n)
 bool insertPriorNode02(LinkList L, LNode *p, ElemType e) {
-  if (p == NULL)
+  if (L == NULL || p == NULL)
     return false;
-  LNode *h;//指针p指向当前扫描到的结点
-  h = L;//p结点指向头结点，从头结点开始扫描
-  while (h != NULL && h->next->next != p) {
+  LNode *h;//指针h指向当前扫描到的结点
+  h = L;//h结点指向头结点，从头结点开始扫描
+  while (h != NULL && h->next != p) {
     h = h->next;
   }
   if (h == NULL)
@@ -125,17 +124,27 @@ bool insertPriorNode02(LinkList L, LNode *p, ElemType e) {
 }
 
 //按位置查找
-LNode * getElemByLocation(LinkList L, int pos) {
-  int j = 0;//记录当前指向的结点，初始结点时头结点
+LNode *getElemByLocation(LNode *p, int pos) {
   if (pos < 1)
     return NULL;//查找位置不合法
-  while (L && j < pos) {
-    L = L->next;
+  int j = 0;//记录当前指向的结点，初始结点时头结点
+  while (p && j < pos) {
+    p = p->next;
     j++;
   }
-  if (L == NULL)
+  if (p == NULL)
     return NULL;//没有第i-1个元素
-  return L;
+  return p;
+}
+
+//按值查找
+LNode *getElemByValue(LinkList L, ElemType e) {
+  if (L == NULL)
+    return false;
+  LNode *p = L->next;
+  while (p != NULL && p->data != e)
+    p = p->next;
+  return p;//找到后返回该点的指针，否则返回NULL
 }
 
 //根据位序删除结点操作
@@ -163,13 +172,26 @@ bool listDelete(LinkList L, int i, ElemType *e) {
 //删除指定结点p，时间复杂度为O(1),偷梁换柱
 //但是如果是删除最后一个结点，该函数会报错
 bool deleteNode(LNode *p) {
-  if (p == NULL)
+  if (p == NULL || p->next == NULL)
     return false;
   LNode *q = p->next; //令q指向*p的后继节点
   p->data = p->next->data;//和后继节点交换数据域
   p->next = q->next;//将*q结点从链中“断开”
   free(q);//释放后继结点的存储空间
   return true;
+}
+
+//求表长
+int getLength(LinkList L) {
+  if (L->next == NULL)
+    return 0;
+  int j = 1;
+  LNode *p = L->next;
+  while (p->next != NULL) {
+    j++;
+    p = p->next;
+  }
+  return j;
 }
 
 //判断单链表是否为空（带头结点）
@@ -206,13 +228,17 @@ int main() {
   // listHeadInsert(&L);
   printList(L);
   LNode *result = getElemByLocation(L, 3);
-  if (result != NULL) {
-    printf("查找到的结点值是：%d\n", result->data);
-  } else {
-    printf("没有找到该值\n");
-  }
-    // ElemType e;
-  // listDelete(L, 1, &e);
-  // printf("delete elem is:%d\n", e);
+  // if (result != NULL) {
+  //   printf("查找到的结点值是：%d\n", result->data);
+  // } else {
+  //   printf("没有找到该值\n");
+  // }
+  // insertPriorNode01(result, 666);
+  insertPriorNode02(L, result, 666);
+  // ElemType e;
+// listDelete(L, 1, &e);
+// printf("delete elem is:%d\n", e);
   printList(L);
+
+  printf("表的长度是：%d", getLength(L));
 }
