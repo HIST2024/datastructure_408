@@ -1,8 +1,9 @@
 #include<stdio.h>
-#define MaxSize 10
+#define MaxSize 20
 typedef int Elemtype;
 //静态分配
 typedef struct {
+  //注意数组的下标是从0开始的
   Elemtype data[MaxSize];
   int length;
 }SeqList;
@@ -72,25 +73,25 @@ void printList(SeqList *L) {
   printf("\n");
 }
 
-int main01() {
-  SeqList L;
-  initList(&L);
-  listInsert(&L, 1, 3);
-  listInsert(&L, 2, 5);
-  listInsert(&L, 3, 7);
-  printList(&L);
+// int main01() {
+//   SeqList L;
+//   initList(&L);
+//   listInsert(&L, 1, 3);
+//   listInsert(&L, 2, 5);
+//   listInsert(&L, 3, 7);
+//   printList(&L);
 
-  Elemtype e;
-  listDelete(&L, 2, &e);
-  printList(&L);
-  printf("delete element is = %d\n", e);
+//   Elemtype e;
+//   listDelete(&L, 2, &e);
+//   printList(&L);
+//   printf("delete element is = %d\n", e);
 
-  printf("第二个元素是:%d\n", getElem(L, 2));
+//   printf("第二个元素是:%d\n", getElem(L, 2));
 
-  if (locateElem(&L, 7) != -1) {
-    printf("7的位置是:%d", locateElem(&L, 7));
-  } else {
-    printf("顺序表中没有7");
-  }
+//   if (locateElem(&L, 7) != -1) {
+//     printf("7的位置是:%d", locateElem(&L, 7));
+//   } else {
+//     printf("顺序表中没有7");
+//   }
 
-}
+// }
