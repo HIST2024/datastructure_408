@@ -155,7 +155,6 @@ bool question08_step02(DataType A[], int m, int n, int arraySize) {
 //因为有序这里使用折半查找
 // bool question09(SeqList *L, Elemtype x) {
 //   int low = 0, high = n - 1, mid;
-  
 // }
 
 int main() {
